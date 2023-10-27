@@ -1,13 +1,12 @@
 import pygame, sys
 import random
-
+import csv
 from pygame.locals import *
 from variables import *
 from texto import *
 from inicio import *
 from Pokemones import *
 from imagenes_pokemon import *
-from botones import*
 
 pygame.init()
 pygame.mixer.init()
@@ -43,15 +42,14 @@ while flag:
                     inicio_finalizado = True
                     inicio = True
                     transicion_blanco()
-
         if inicio_finalizado == True:
-
 
 #--------------Barra blanca de texto
             if event.type == pygame.MOUSEBUTTONDOWN: 
                 if event.button == 1 and barra_blanca.collidepoint(event.pos):  # Clic derecho
                     input_active = True
             elif event.type == pygame.KEYDOWN and inicio_finalizado == True:
+                
                 if input_active:
                     if event.key == pygame.K_RETURN:
                         input_active = False
@@ -61,20 +59,21 @@ while flag:
                         # Controlar la longitud del texto en relación con el ancho del rectángulo
                         if nombre_pokemon == "" or fuente50.size(nombre_pokemon)[0] < barra_blanca.width + 30 :
                             nombre_pokemon += event.unicode
-                            # Verificar si el nombre coincide con un nombre de Pokémon predefinido
                             if nombre_pokemon.lower() == pokemon_aleatorio:
-                                # Realizar los cambios necesarios si coincide con un nombre de Pokémon
-                                # Por ejemplo, puedes cambiar alguna variable o hacer lo que necesites
-                                # Ejemplo:
-                                print(f'¡Has ingresado el Pokémon {nombre_pokemon}!')
+
+                                contador += 1
+                                racha_actual_util = fuente50.render(f"{contador}", True, "white")
                                 nombre_pokemon = ""
+                                if contador > acumulador_best:
+                                    acumulador_best = contador
+                                    racha_mejor_util = fuente50.render(f"{acumulador_best}", True, "white")
                                 
                                 while True:
-
+                                    
                                     gen_aleatoria = random.randint(1, 6)
                                     match gen_aleatoria:
                                         case 1:
-                                            if bandera_gen1 == True:
+                                            if bandera_gen1 == True :
                                                 pokemon_aleatorio = random.choice(Primera)
                                                 print(f"{pokemon_aleatorio}")
                                                 imagen_aleatoria = pokemon_imagenes[pokemon_aleatorio]
@@ -104,7 +103,6 @@ while flag:
                                                 imagen_aleatoria = pokemon_imagenes[pokemon_aleatorio]
                                                 break
                                             else:
-
                                                 gen_aleatoria = random.randint(1, 6)
                                         case 5:
                                             if bandera_gen5 == True:
@@ -122,8 +120,6 @@ while flag:
                                                 break
                                             else:
                                                 gen_aleatoria = random.randint(1, 6)
-                                
-
 
 #------------Activar o desactivar sonido
             if event.type == pygame.MOUSEBUTTONDOWN:  
@@ -140,36 +136,31 @@ while flag:
                     bandera_gen1 = True
                 elif event.button == 1 and rectangulo_generacion1.collidepoint(event.pos) and bandera_gen1 == True:
                     bandera_gen1 = False
-                    
                 if event.button == 1 and rectangulo_generacion2.collidepoint(event.pos) and bandera_gen2 == True:
                     bandera_gen2 = False
-                    
                 elif event.button == 1 and rectangulo_generacion2.collidepoint(event.pos) and bandera_gen2 == False:
                     bandera_gen2 = True
-
                 if event.button == 1 and rectangulo_generacion3.collidepoint(event.pos) and bandera_gen3 == True:
                     bandera_gen3 = False
-                    
                 elif event.button == 1 and rectangulo_generacion3.collidepoint(event.pos) and bandera_gen3 == False:
                     bandera_gen3 = True
-
                 if event.button == 1 and rectangulo_generacion4.collidepoint(event.pos) and bandera_gen4 == True:
                     bandera_gen4 = False
-                    
                 elif event.button == 1 and rectangulo_generacion4.collidepoint(event.pos) and bandera_gen4 == False:
                     bandera_gen4 = True
-
                 if event.button == 1 and rectangulo_generacion5.collidepoint(event.pos) and bandera_gen5 == True:
                     bandera_gen5 = False
-                    
                 elif event.button == 1 and rectangulo_generacion5.collidepoint(event.pos) and bandera_gen5 == False:
                     bandera_gen5 = True
-
                 if event.button == 1 and rectangulo_generacion6.collidepoint(event.pos) and bandera_gen6 == True:
                     bandera_gen6 = False
-                    
                 elif event.button == 1 and rectangulo_generacion6.collidepoint(event.pos) and bandera_gen6 == False:
                     bandera_gen6 = True
+                if event.button == 1 and rect_texto2.collidepoint(event.pos):
+                    bandera_nolose = False
+                    flag = False
+                    print("Juego Finalizado")
+
 
             screen.fill(fondo)
 
@@ -179,6 +170,7 @@ while flag:
             pygame.draw.rect(screen, gris_oscuro, rectangulo_dificultad, 0, 15) #Barra dificultad
             pygame.draw.rect(screen, gris_oscuro, rectangulo_dificultadx, 0, 15) #Barra dificultad
             pygame.draw.rect(screen, "white", rectangulo_dificultad2) #Barra dificultad
+
 
             if bandera_gen1 == True:
                 pygame.draw.rect(screen, "white", rectangulo_generacion1, 0, 15) #Barra generacion
@@ -249,23 +241,16 @@ while flag:
             pygame.draw.rect(screen, gris_oscuro, rectangulo_promedio, 0, 15) #Barra mejor tiempo
 
 
-            #pygame.draw.rect(screen, (255, 255, 255), rectangulo_dificultad1, 2)
-            #pygame.draw.rect(screen, gris_oscuro, rectangulo_generacion1, 0, 15)
-            #pygame.draw.rect(screen, "black", rectangulo_generacion2, 2)
-            #pygame.draw.rect(screen, (255, 255, 255), rectangulo_imagenes, 2)
-            #pygame.draw.rect(screen, (255, 255, 255), rectangulo_racha, 2)
-
-
             pygame.draw.rect(screen, celeste, (175, 50, 550, 700), 0, 10) #Rectangulo celeste
             pygame.draw.rect(screen, "white", barra_blanca, 0, 10) #Barra para escribir
             
 
-            font = pygame.font.Font(None, 50)
-            nombre_pokemon = nombre_pokemon.lstrip().lower()
-            input_text = font.render(nombre_pokemon, True, "black")
+            font = pygame.font.Font(None, 50) # Barra blanca
+            nombre_pokemon = nombre_pokemon.lstrip().lower() # Barra blanca
+            input_text = font.render(nombre_pokemon, True, "black") # Barra blanca
             
-            input_text_rect = input_text.get_rect()
-            input_text_rect.center = barra_blanca.center
+            input_text_rect = input_text.get_rect() # Barra blanca
+            input_text_rect.center = barra_blanca.center # Barra blanca
 
             screen.blit(texto, rect_texto) # cual es este pokemon
             screen.blit(texto2, rect_texto2) # no lo se
@@ -298,20 +283,21 @@ while flag:
             screen.blit(off, rectangulo_off.topleft) # off
             screen.blit(on, rectangulo_on.topleft) # on
             
-            screen.blit(racha_actual, rectangulo_racha_actual.topleft) 
+            screen.blit(racha_actual, rectangulo_racha_actual.topleft)
+            screen.blit(racha_actual_util, rectangulo_racha_actual_util.topleft)  
+
             screen.blit(racha_mejor, rectangulo_racha_mejor.topleft)
+            screen.blit(racha_mejor_util, rectangulo_racha_mejor_util.topleft)
+
             screen.blit(tiempo_anterior, rectangulo_tiempo_anterior.topleft)
             screen.blit(tiempo_mejor, rectangulo_tiempo_mejor.topleft)
             screen.blit(promedio, rectangulo_promedio_tiempo.topleft)
 
             
-            imagen_aleatoria.fill("black", None, special_flags = pygame.BLEND_RGBA_MULT)
+            imagen_aleatoria.fill("black", None, special_flags = pygame.BLEND_RGBA_MULT) # Oscurecer imagenes
             screen.blit(imagen_aleatoria, rectangulo_imagenes) # imagenes pokemones
-
-
 
             pygame.display.flip()
             reloj.tick(60)
-
 
 pygame.quit()

@@ -1,4 +1,5 @@
 import pygame, sys
+import csv
 from variables import *
 from texto import *
 
@@ -10,18 +11,15 @@ pantalla_inicial = pygame.display.set_mode(ventana)
 
 pygame.display.set_caption('Ventana de Inicio')
 play_game = pygame.Rect((LARGO // 2 - 200, 710), (400, 100))
-#fondo = pygame.image.load('Pirmer Parcial\Sin título-1.png')
 
 def mostrar_pantalla_inicio():
     fondo_inico = pygame.image.load('Pirmer Parcial\Recursos\Fondo_inicio.png')
     pantalla_inicial.blit(fondo_inico, (0,0))  # Fondo blanco
 
     texto = fuente30.render('PRESS SPACE TO START', True, "white")
-
     pg = texto.get_rect()
     pg.center = play_game.center
     pantalla_inicial.blit(texto, pg.topleft)
-
     pygame.display.flip()
 
 # Transición a blanco
@@ -35,4 +33,3 @@ def transicion_blanco():
         pygame.display.flip()
         reloj.tick(100)
 
-        

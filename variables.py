@@ -11,6 +11,9 @@ gris_oscuro = (52,73,94)
 
 ventana = (LARGO, ALTO)
 
+contador = 0
+acumulador_best = 0
+
 flag = True
 nombre_pokemon = ""
 bandera_sonido = True
@@ -19,13 +22,14 @@ inicio_finalizado = False
 
 inicio = False
 
-
 bandera_gen1 = True
 bandera_gen2 = False
 bandera_gen3 = False
 bandera_gen4 = False
 bandera_gen5 = False
 bandera_gen6= False
+
+bandera_nolose = False
 
 rectangulo_imagenes = pygame.Rect((275,200), (350,350))
 
@@ -55,7 +59,10 @@ rectangulo_sonido_off = pygame.Rect((20, 630), (80, 60))
 rectangulo_sonido_on = pygame.Rect((100, 630), (80, 60))
 
 rectangulo_racha = pygame.Rect((700, 100), (180, 100))
+rectangulo_racha_util = pygame.Rect((700, 150), (180, 70))
+
 rectangulo_mejor = pygame.Rect((700, 210), (180, 100))
+rectangulo_mejor_util = pygame.Rect((700, 240), (180, 70))
 
 rectangulo_anterior = pygame.Rect((700, 350), (180, 100))
 rectangulo_mejor_tiempo = pygame.Rect((700, 460), (180, 120))

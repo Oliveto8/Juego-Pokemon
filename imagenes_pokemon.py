@@ -3,6 +3,9 @@ import os
 import random
 from Pokemones import *
 
+global pokemon_aleatorio
+global imagen_aleatoria
+
 # Directorio donde se encuentran las imágenes
 imagenes_gen1 = 'Pirmer Parcial\\artwork\Gen1'
 imagenes_gen2 = 'Pirmer Parcial\\artwork\Gen2'
@@ -11,14 +14,12 @@ imagenes_gen4 = 'Pirmer Parcial\\artwork\Gen4'
 imagenes_gen5 = 'Pirmer Parcial\\artwork\Gen5'
 imagenes_gen6 = 'Pirmer Parcial\\artwork\Gen6'
 
-
 # Crear un diccionario para almacenar los nombres de los Pokémon y sus rutas de imagen
 pokemon_imagenes = {}
 
-
 def cambiar_generacion(key,lista):
     for pokemon in key:
-        # Los nombres de los archivos están numerados del 1 al 151
+        # Los nombres de los archivos están numerados del 1 al x
         numero_pokemon = key.index(pokemon) + 1
         nombre_archivo = f'{numero_pokemon}.png'
         ruta_imagen = os.path.join(lista, nombre_archivo)
@@ -39,6 +40,10 @@ cambiar_generacion(Sexta,imagenes_gen6)
 pokemon_aleatorio = random.choice(Primera)
 print(f"{pokemon_aleatorio}")
 imagen_aleatoria = pokemon_imagenes[pokemon_aleatorio]
+
+
+
+
 
 
 

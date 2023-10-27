@@ -94,9 +94,18 @@ racha_actual = fuente25.render("Current", True, "white")
 rectangulo_racha_actual = racha_actual.get_rect()
 rectangulo_racha_actual.center = (800,120)
 
+racha_actual_util = fuente50.render(f"{contador}", True, "white")
+rectangulo_racha_actual_util = racha_actual_util.get_rect()
+rectangulo_racha_actual_util.center = (800,160)
+
+
 racha_mejor = fuente25.render("Best", True, "white")
 rectangulo_racha_mejor = racha_mejor.get_rect()
 rectangulo_racha_mejor.center = (800,230)
+
+racha_mejor_util = fuente50.render(f"{acumulador_best}", True, "white")
+rectangulo_racha_mejor_util = racha_mejor_util.get_rect()
+rectangulo_racha_mejor_util.center = (800,270)
 
 ###TIEMPO###
 tiempo_anterior = fuente25.render("Previous", True, "white")
